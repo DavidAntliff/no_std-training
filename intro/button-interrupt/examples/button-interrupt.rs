@@ -11,7 +11,7 @@ use hal::{
     interrupt,
     peripherals::{self, Peripherals},
     prelude::*,
-    riscv, Delay,
+    xtensa_lx, Delay,
 };
 
 static BUTTON: Mutex<RefCell<Option<Gpio9<Input<PullDown>>>>> = Mutex::new(RefCell::new(None));
@@ -37,7 +37,7 @@ fn main() -> ! {
     interrupt::enable(peripherals::Interrupt::GPIO, interrupt::Priority::Priority3).unwrap();
 
     unsafe {
-        riscv::interrupt::enable();
+        xtensa_lx::interrupt::enable();
     }
 
     let mut delay = Delay::new(&clocks);

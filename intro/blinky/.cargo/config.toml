@@ -8,7 +8,7 @@ rustflags = [
   # NOTE: May negatively impact performance of produced code
   "-C", "force-frame-pointers",
 
-  # ESP32
+  # esp32
   "-C", "link-arg=-nostartfiles",
 ]
 
