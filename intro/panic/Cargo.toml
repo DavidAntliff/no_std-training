@@ -17,3 +17,7 @@ esp-hal = { version = "1.0.0",features = [
     "unstable",
 ] }
 esp-println = { version = "0.16.1", features = ["esp32c6", "log-04"] }
+
+# Add this for better panic backtraces
+[profile.release]
+debug = true
