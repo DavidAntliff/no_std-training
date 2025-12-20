@@ -18,9 +18,15 @@ fn main() -> ! {
     println!("Hello world!");
 
     // Set GPIO7 as an output, and set its state high initially.
+    let mut led = Output::new(peripherals.GPIO7, Level::High, OutputConfig::default());
 
     // Initialize the Delay peripheral, and use it to toggle the LED state in a
     // loop.
+    let delay = Delay::new();
 
-    loop {}
+    loop {
+        led.toggle();
+        println!("Blink!");
+        delay.delay_millis(500);
+    }
 }

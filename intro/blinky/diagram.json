@@ -11,6 +11,15 @@
             "attrs": {
                 "builder": "rust-nostd-esp"
             }
+        },
+        { "type": "wokwi-led", "id": "led1", "top": -90, "left": -92.2, "attrs": { "color": "blue" } },
+        {
+            "type": "wokwi-resistor",
+            "id": "r1",
+            "top": -53.35,
+            "left": -39.8,
+            "rotate": 180,
+            "attrs": { "value": "100" }
         }
     ],
     "connections": [
@@ -25,7 +34,11 @@
             "$serialMonitor:TX",
             "",
             []
-        ]
+        ],
+        [ "esp:7", "r1:1", "red", [ "v0" ] ],
+        [ "r1:2", "led1:A", "red", [ "v0" ] ],
+        [ "led1:C", "esp:GND", "black", [ "h0" ] ],
+        [ "led1:C", "esp:GND.1", "black", [ "v0" ] ]
     ],
     "serialMonitor": {
         "display": "auto"
