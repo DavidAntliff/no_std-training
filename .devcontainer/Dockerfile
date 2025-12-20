@@ -22,7 +22,7 @@ WORKDIR /home/${CONTAINER_USER}
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- \
     --default-toolchain ${RUST_CHANNEL} -y --profile minimal \
-    --component rust-src,clippy,rustfmt --target riscv32imc-unknown-none-elf
+    --component rust-src,clippy,rustfmt --target riscv32imac-unknown-none-elf
 
 ENV PATH=${PATH}:$HOME/.cargo/bin
 

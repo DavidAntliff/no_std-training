@@ -4,7 +4,7 @@
     "editor": "wokwi",
     "parts": [
         {
-            "type": "board-esp32-c3-rust-1",
+            "type": "board-esp32-c6-devkitc-1",
             "id": "esp",
             "top": -99.32,
             "left": 34.67,

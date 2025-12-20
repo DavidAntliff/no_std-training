@@ -12,7 +12,7 @@ Follow the steps below for a default installation of the ESP32-C3 platform tooli
 ✅ Install Rust *stable* channel, if you haven't already, and add support for the target architecture using the following command:
 
 ```console
-rustup toolchain install stable --component rust-src --target riscv32imc-unknown-none-elf
+rustup toolchain install stable --component rust-src --target riscv32imac-unknown-none-elf
 ```
 
 🔎 Rust is capable of cross-compiling to any supported target (see `rustup target list`). By default, only the native architecture of your system is installed.
@@ -55,7 +55,7 @@ to compile the binaries for the Espressif target. Flashing binaries from contain
     - On the host: use the `cargo-espflash` sub-command to flash the program onto the embedded hardware
 - Use [`web-flash`](https://github.com/esp-rs/esp-web-flash-server) crate to flash the resulting binaries from the container. The container already includes `web-flash`. Here is how you would flash the build output of [`hello-world` project](./02_4_hello-world.md):
    ```console
-   web-flash --chip esp32c3 target/riscv32imc-unknown-none-elf/release/hello-world
+   web-flash --chip esp32c3 target/riscv32imac-unknown-none-elf/release/hello-world
    ```
 
 ✅ Install [`Docker`](https://docs.docker.com/get-docker/) for your operating system.

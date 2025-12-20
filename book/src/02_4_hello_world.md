@@ -40,7 +40,7 @@ INFO - Hello world!
 
 > 🔎 `cargo run` is [configured to use `espflash`](https://github.com/esp-rs/no_std-training/blob/main/intro/hello-world/.cargo/config.toml#L2) as [custom runner](https://doc.rust-lang.org/cargo/reference/config.html#target). The same output can be achieved via:
 > - Using `cargo-espflash`: `cargo espflash flash --release --monitor`
-> - Building your project and flashing it with `espflash`: `cargo build --release && espflash target/riscv32imc-unknown-none-elf/release/hello_world`
+> - Building your project and flashing it with `espflash`: `cargo build --release && espflash target/riscv32imac-unknown-none-elf/release/hello_world`
 > This modification is applied to all the projects in the training for convenience.
 
 > 💡 By default espflash will use a baud-rate of 115200 which is quite conservative. An easy way to increase the baud-rate is setting the environment variable `ESPFLASH_BAUD` to e.g. 921600
