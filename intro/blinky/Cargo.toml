@@ -5,6 +5,11 @@ authors = ["Sergio Gasquez <sergio.gasquez@gmail.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
 
+# Setting 'test = false' seems to avoid the RustRover IDE warning "Can't find crate for 'test'"
+[[bin]]
+name = "blinky"
+test = false
+
 [dependencies]
 esp-backtrace = { version = "0.18.1", features = [
     "esp32c6",

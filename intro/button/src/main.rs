@@ -23,9 +23,9 @@ fn main() -> ! {
     // Check the button state and set the LED state accordingly.
     loop {
         if button.is_high() {
-            led.set_low();
-        } else {
             led.set_high();
+        } else {
+            led.set_low();
         }
 
     }

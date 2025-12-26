@@ -1,6 +1,7 @@
 #![no_std]
 #![no_main]
 
+#[allow(unused_imports)]
 use esp_backtrace as _;
 use esp_hal::{
     delay::Delay,
