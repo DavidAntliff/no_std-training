@@ -2,6 +2,8 @@
 #![no_main]
 
 //  Build the `esp_println` and `esp_backtrace` libs
+use esp_backtrace as _;
+use esp_println as _;
 
 use esp_hal::{delay::Delay, main};
 
@@ -13,11 +15,17 @@ fn main() -> ! {
     let delay = Delay::new();
 
     // Print a log or a message using defmt
+    defmt::trace!("trace");
+    defmt::debug!("debug");
+    defmt::info!("info");
+    defmt::warn!("warn");
+    defmt::error!("error");
 
     // Use a panic! macro to trigger a panic
+    panic!("Panic!");
 
-    loop {
-        defmt::println!("Loop...");
-        delay.delay_millis(500u32);
-    }
+    // loop {
+    //     defmt::println!("Loop...");
+    //     delay.delay_millis(500u32);
+    // }
 }

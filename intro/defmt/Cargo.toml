@@ -22,3 +22,7 @@ esp-println = { version = "0.16.1", features = [
     "log-04",
     "defmt-espflash",
 ] }
+
+# Add this for better panic backtraces
+[profile.release]
+debug = true
