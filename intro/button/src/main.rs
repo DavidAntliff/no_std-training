@@ -14,10 +14,19 @@ esp_bootloader_esp_idf::esp_app_desc!();
 fn main() -> ! {
     let peripherals = esp_hal::init(esp_hal::Config::default());
 
-    println!("Hello world!");
+    println!("Button!");
 
     // Set GPIO7 as an output, and set its state high initially.
+    let mut led = Output::new(peripherals.GPIO7, Level::Low, OutputConfig::default());
+    let button = Input::new(peripherals.GPIO9, InputConfig::default());
 
     // Check the button state and set the LED state accordingly.
-    loop {}
+    loop {
+        if button.is_high() {
+            led.set_low();
+        } else {
+            led.set_high();
+        }
+
+    }
 }
