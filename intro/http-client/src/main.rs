@@ -30,6 +30,7 @@ esp_bootloader_esp_idf::esp_app_desc!();
 
 #[main]
 fn main() -> ! {
+    // Set clock to maximum frequency
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
@@ -37,13 +38,17 @@ fn main() -> ! {
     esp_alloc::heap_allocator!(size: 36 * 1024);
 
     // Initialize the timer, rng and Wifi controller
-    // let timg0 =
-    // let sw_int =
-    // esp_rtos::start(
-    //     ...
-    // let esp_radio_ctrl =
+    let timg0 = esp_hal::timer::timg::TimerGroup::new(peripherals.TIMG0);
+    let sw_int = SoftwareInterruptControl::new(peripherals.SW_INTERRUPT);
+    esp_rtos::start(
+        timg0.timer0,
+        #[cfg(target_arch = "riscv32")]
+        sw_int.software_interrupt0,
+    );
 
-    // Configure Wifi
+    let esp_radio_ctrl = esp_radio::init().unwrap();
+
+    // Configure Wifi using Station Mode
     let (mut controller, interfaces) =
         esp_radio::wifi::new(&esp_radio_ctrl, peripherals.WIFI, Default::default()).unwrap();
     let mut device = interfaces.sta;
@@ -64,8 +69,13 @@ fn main() -> ! {
     let stack = Stack::new(iface, device, socket_set, now, rng.random());
 
     // Create a Client with your Wi-Fi credentials and default configuration.
-    // let client_config = ModeConfig::Client(...);
-    let res = controller.set_conf(&client_config);
+    let client_config = ModeConfig::Client(
+        ClientConfig::default()
+            .with_ssid(SSID.into())
+            .with_password(PASSWORD.into())
+    );
+
+    let res = controller.set_config(&client_config);
     println!("Wi-Fi set_configuration returned {:?}", res);
 
     // Start Wi-Fi controller, scan the available networks.
@@ -118,13 +128,17 @@ fn main() -> ! {
         socket.work();
 
         // Open the socket
-        // socket
-        //     .open(....)
-        //     .unwrap();
-        // Write and flush the socket
-        // socket...
-        // socket...
+        socket
+            .open(IpAddress::Ipv4(Ipv4Addr::new(142, 250, 185, 115)), 80)
+            .unwrap();
 
+        // Write and flush the socket
+        socket
+            .write(b"GET / HTTP/1.0\r\nHost: www.mobile-j.de\r\n\r\n")
+            .unwrap();
+        socket.flush().unwrap();
+
+        // Handle response
         let deadline = time::Instant::now() + Duration::from_secs(20);
         let mut buffer = [0u8; 512];
         while let Ok(len) = socket.read(&mut buffer) {
